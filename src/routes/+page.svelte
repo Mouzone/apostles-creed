@@ -25,3 +25,27 @@
 	<br />
 	<p>Amen.</p>
 </div>
+
+<style>
+	@font-face {
+		font-family: "Merriweather";
+		src: url("/Merriweather/Merriweather-VariableFont_opsz\,wdth\,wght.ttf")
+			format("truetype");
+		font-weight: normal;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: "Open Sans";
+		src: url("/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf")
+			format("truetype");
+		font-weight: normal;
+		font-style: normal;
+	}
+	div {
+		width: 100dvw;
+		font-family: "Open Sans";
+		padding: 2em 4em 2em 4em;
+
+		font-weight: bold;
+	}
+</style>
