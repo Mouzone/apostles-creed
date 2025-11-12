@@ -47,11 +47,11 @@
 	}
 	div {
 		width: 100dvw;
-		padding: 2em 4em 2em 4em;
+		padding: 2em 3em 2em 3em;
 
 		font-family: "Open Sans";
 		font-size: 1.35em;
 		font-weight: bold;
-		line-height: 0.6em;
+		line-height: 0.7em;
 	}
 </style>
