@@ -3,8 +3,8 @@
 	"short_name": "NP",
 	"start_url": "/",
 	"display": "standalone",
-	"background_color": "black",
-	"theme-color": "#black",
+	"background_color": "white",
+	"theme-color": "white",
 	"description": "Template",
 	"icons": [
 		{
