@@ -35,14 +35,14 @@
 		font-family: "Merriweather";
 		src: url("/Merriweather/Merriweather-VariableFont_opsz\,wdth\,wght.ttf")
 			format("truetype");
-		font-weight: normal;
+		font-weight: 300 900;
 		font-style: normal;
 	}
 	@font-face {
 		font-family: "Open Sans";
 		src: url("/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf")
 			format("truetype");
-		font-weight: normal;
+		font-weight: 300 800;
 		font-style: normal;
 	}
 	div {
