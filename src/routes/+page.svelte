@@ -12,12 +12,16 @@
 	{#if mode === "all"}
 		<div id="verses">
 			{#each Object.values(data) as verse, i}
-				<p
-					class="verse"
-					data-line={i}
-				>
-					{verse}
-				</p>
+				{#if verse === " "}
+					<br />
+				{:else}
+					<p
+						class="verse"
+						data-line={i}
+					>
+						{verse}
+					</p>
+				{/if}
 			{/each}
 		</div>
 	{:else}
