@@ -14,7 +14,6 @@
 			{#each Object.values(data) as verse, i}
 				<p
 					class="verse"
-					style:display={mode === "all" ? "" : "none"}
 					data-line={i}
 				>
 					{verse}
