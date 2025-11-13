@@ -56,6 +56,9 @@
 		line-height: 0.5em;
 
 		display: flex;
+		justify-content: center;
+		/* on desktop it cuts off top, but looks good on desktop full screen */
+		/* align-items: center; */
 	}
 
 	#verses {
