@@ -1,23 +1,29 @@
 <script>
+	import data from "$lib/apostles-creed-verses.json";
+
 	let mode = $state("all");
-	let verse = $state(1);
-	$effect(() => {
-		if (mode === "all") {
-		} else if (mode === "verse") {
-		}
-	});
+	let lineNumber = $state(1);
 </script>
 
 <div id="page">
-	<button onclick={() => (mode === "all" ? "verse" : "all")}>
+	<button onclick={() => (mode = mode === "all" ? "verse" : "all")}>
 		Switch Mode
 	</button>
-	<div id="verses">
-		<p
-			class="verse"
-			data-line="1"
-		></p>
-	</div>
+	{#if mode === "all"}
+		<div id="verses">
+			{#each Object.values(data) as verse, i}
+				<p
+					class="verse"
+					style:display={mode === "all" ? "" : "none"}
+					data-line={i}
+				>
+					{verse}
+				</p>
+			{/each}
+		</div>
+	{:else}
+		<p>{data[`${lineNumber}`]}</p>
+	{/if}
 </div>
 
 <style>
