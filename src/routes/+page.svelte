@@ -21,7 +21,7 @@
 			{/each}
 		</div>
 	{:else}
-		<p>{data[`${lineNumber}`]}</p>
+		<p id="single-verse">{data[`${lineNumber}`]}</p>
 	{/if}
 </div>
 
@@ -40,13 +40,30 @@
 		font-weight: 300 800;
 		font-style: normal;
 	}
+	p {
+		width: 97dvw;
+	}
 	#page {
+		height: 100dvh;
 		width: 100dvw;
-		padding: 2em 3em 2em 3em;
+		box-sizing: border-box;
+		padding: 1em;
 
 		font-family: "Open Sans";
 		font-size: 1.35em;
 		font-weight: bold;
 		line-height: 0.7em;
+
+		display: flex;
+	}
+	button {
+		position: absolute;
+		right: 1em;
+		top: 1em;
+	}
+
+	#single-verse {
+		text-align: center;
+		align-self: center;
 	}
 </style>
