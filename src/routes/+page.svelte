@@ -44,9 +44,6 @@
 		font-weight: 300 800;
 		font-style: normal;
 	}
-	p {
-		width: 97dvw;
-	}
 	#page {
 		height: 100dvh;
 		width: 100dvw;
@@ -56,10 +53,15 @@
 		font-family: "Open Sans";
 		font-size: 1.35em;
 		font-weight: bold;
-		line-height: 0.7em;
+		line-height: 0.5em;
 
 		display: flex;
 	}
+
+	#verses {
+		padding-left: 1.5em;
+	}
+
 	button {
 		position: absolute;
 		right: 1em;
@@ -67,6 +69,7 @@
 	}
 
 	#single-verse {
+		width: 100dvw;
 		text-align: center;
 		align-self: center;
 	}
