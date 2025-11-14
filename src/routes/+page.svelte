@@ -96,7 +96,7 @@
 			>
 				prev
 			</button>
-			<p id="verse">{data[`${lineNumber}`]}</p>
+			<p>{data[`${lineNumber}`]}</p>
 			<button
 				onclick={goNext}
 				disabled={lineNumber === Object.entries(data).length}
@@ -123,10 +123,8 @@
 		font-style: normal;
 	}
 	#page {
-		height: 100dvh;
 		width: 100dvw;
 		box-sizing: border-box;
-		padding: 1em;
 
 		font-family: "Open Sans";
 		font-size: 1.35em;
@@ -141,13 +139,28 @@
 		right: 1em;
 		top: 1em;
 	}
-
+	#verses {
+		margin: 1em;
+	}
+	p {
+		margin: 0;
+	}
+	.verse {
+		margin: 0.35em;
+	}
 	#single-verse {
+		height: 100dvh;
 		width: 100dvw;
 
+		margin: 0 1em 0 1em;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		text-align: center;
+	}
+	@media (max-width: 640px) {
+		.verse {
+			margin: 0.7em;
+		}
 	}
 </style>
