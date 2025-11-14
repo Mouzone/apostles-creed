@@ -98,6 +98,7 @@
 			ontouchend={handleTouchEnd}
 		>
 			<button
+				class="nav"
 				onclick={goPrev}
 				disabled={lineNumber === 1}
 			>
@@ -105,6 +106,7 @@
 			</button>
 			<p>{data[`${lineNumber}`]}</p>
 			<button
+				class="nav"
 				onclick={goNext}
 				disabled={lineNumber === Object.entries(data).length}
 			>
@@ -135,19 +137,18 @@
 
 		font-family: "Open Sans";
 		font-size: 1.35em;
-		font-weight: bold;
 
 		display: flex;
 		justify-content: center;
 	}
 
 	button#mode {
-		position: absolute;
-		right: 0.25em;
-		top: 1em;
-
 		width: 2em;
 		height: 2em;
+
+		position: absolute;
+		right: 1em;
+		top: 1em;
 
 		appearance: none;
 		border: none;
@@ -155,7 +156,7 @@
 		color: white;
 		border-radius: 1em;
 
-		font-size: 1em;
+		font-size: 0.75em;
 	}
 	#verses {
 		margin: 1em;
@@ -175,6 +176,11 @@
 		justify-content: space-between;
 		align-items: center;
 		text-align: center;
+	}
+	button.nav {
+		appearance: none;
+		border: none;
+		background-color: transparent;
 	}
 	@media (max-width: 640px) {
 		.verse {
