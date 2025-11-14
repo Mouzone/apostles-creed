@@ -1,5 +1,7 @@
 <script>
 	import data from "$lib/apostles-creed-verses.json";
+	import LeftArrow from "$lib/svgs/left-arrow.svelte";
+	import RightArrow from "$lib/svgs/right-arrow.svelte";
 
 	let mode = $state("all");
 	let lineNumber = $state(1);
@@ -102,7 +104,7 @@
 				onclick={goPrev}
 				disabled={lineNumber === 1}
 			>
-				prev
+				<LeftArrow />
 			</button>
 			<p>{data[`${lineNumber}`]}</p>
 			<button
@@ -110,7 +112,7 @@
 				onclick={goNext}
 				disabled={lineNumber === Object.entries(data).length}
 			>
-				next
+				<RightArrow />
 			</button>
 		</div>
 	{/if}
@@ -181,6 +183,9 @@
 		appearance: none;
 		border: none;
 		background-color: transparent;
+	}
+	button.nav:disabled {
+		opacity: 30%;
 	}
 	@media (max-width: 640px) {
 		.verse {
