@@ -6,7 +6,10 @@
 </script>
 
 <div id="page">
-	<button onclick={() => (mode = mode === "all" ? "verse" : "all")}>
+	<button
+		id="mode"
+		onclick={() => (mode = mode === "all" ? "verse" : "all")}
+	>
 		Switch Mode
 	</button>
 	{#if mode === "all"}
@@ -25,7 +28,21 @@
 			{/each}
 		</div>
 	{:else}
-		<p id="single-verse">{data[`${lineNumber}`]}</p>
+		<div id="single-verse">
+			<button
+				onclick={() => (lineNumber -= 1)}
+				disabled={lineNumber === 1}
+			>
+				prev
+			</button>
+			<p id="verse">{data[`${lineNumber}`]}</p>
+			<button
+				onclick={() => (lineNumber += 1)}
+				disabled={lineNumber === Object.entries(data).length}
+			>
+				next
+			</button>
+		</div>
 	{/if}
 </div>
 
@@ -65,7 +82,7 @@
 		padding-left: 1.5em;
 	}
 
-	button {
+	button#mode {
 		position: absolute;
 		right: 1em;
 		top: 1em;
@@ -73,7 +90,10 @@
 
 	#single-verse {
 		width: 100dvw;
-		text-align: center;
-		align-self: center;
+		height: 100dvh;
+
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 </style>
