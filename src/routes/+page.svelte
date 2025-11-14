@@ -143,8 +143,8 @@
 
 	button#mode {
 		position: absolute;
-		right: 0.5em;
-		top: 0.5em;
+		right: 0.25em;
+		top: 1em;
 
 		width: 2em;
 		height: 2em;
@@ -155,7 +155,7 @@
 		color: white;
 		border-radius: 1em;
 
-		font-size: 0.7em;
+		font-size: 1em;
 	}
 	#verses {
 		margin: 1em;
