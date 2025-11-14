@@ -136,10 +136,6 @@
 		justify-content: center;
 	}
 
-	#verses {
-		padding-left: 1.5em;
-	}
-
 	button#mode {
 		position: absolute;
 		right: 1em;
@@ -148,7 +144,6 @@
 
 	#single-verse {
 		width: 100dvw;
-		height: 100dvh;
 
 		display: flex;
 		justify-content: space-between;
