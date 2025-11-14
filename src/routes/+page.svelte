@@ -30,14 +30,24 @@
 	{:else}
 		<div id="single-verse">
 			<button
-				onclick={() => (lineNumber -= 1)}
+				onclick={() => {
+					lineNumber -= 1;
+					if (data[`${lineNumber}`] === " ") {
+						lineNumber -= 1;
+					}
+				}}
 				disabled={lineNumber === 1}
 			>
 				prev
 			</button>
 			<p id="verse">{data[`${lineNumber}`]}</p>
 			<button
-				onclick={() => (lineNumber += 1)}
+				onclick={() => {
+					lineNumber += 1;
+					if (data[`${lineNumber}`] === " ") {
+						lineNumber += 1;
+					}
+				}}
 				disabled={lineNumber === Object.entries(data).length}
 			>
 				next
