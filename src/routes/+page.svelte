@@ -65,9 +65,16 @@
 <div id="page">
 	<button
 		id="mode"
-		onclick={() => (mode = mode === "all" ? "verse" : "all")}
+		onclick={() => {
+			mode = mode === "all" ? "verse" : "all";
+			lineNumber = 1;
+		}}
 	>
-		Switch Mode
+		{#if mode === "all"}
+			All
+		{:else}
+			1
+		{/if}
 	</button>
 	{#if mode === "all"}
 		<div id="verses">
@@ -136,8 +143,19 @@
 
 	button#mode {
 		position: absolute;
-		right: 1em;
-		top: 1em;
+		right: 0.5em;
+		top: 0.5em;
+
+		width: 2em;
+		height: 2em;
+
+		appearance: none;
+		border: none;
+		background-color: black;
+		color: white;
+		border-radius: 1em;
+
+		font-size: 0.7em;
 	}
 	#verses {
 		margin: 1em;
