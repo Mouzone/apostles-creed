@@ -145,23 +145,23 @@
 	}
 
 	button#mode {
-		width: 2em;
-		height: 2em;
+		width: 2.5em;
+		height: 2.5em;
 
 		position: absolute;
-		right: 1em;
 		top: 1em;
 
 		appearance: none;
 		border: none;
 		background-color: black;
 		color: white;
-		border-radius: 1em;
+		border-radius: 1.5em;
 
-		font-size: 0.75em;
+		font-size: 0.6em;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 	}
 	#verses {
-		margin: 1em;
+		margin: 2em 1em 1em 1em;
 	}
 	p {
 		margin: 0;
