@@ -131,12 +131,9 @@
 		font-family: "Open Sans";
 		font-size: 1.35em;
 		font-weight: bold;
-		line-height: 0.5em;
 
 		display: flex;
 		justify-content: center;
-		/* on desktop it cuts off top, but looks good on desktop full screen */
-		/* align-items: center; */
 	}
 
 	#verses {
@@ -156,5 +153,6 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		text-align: center;
 	}
 </style>
