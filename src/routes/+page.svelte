@@ -3,7 +3,64 @@
 
 	let mode = $state("all");
 	let lineNumber = $state(1);
+
+	let touchStartX = 0;
+
+	function goPrev() {
+		lineNumber -= 1;
+		if (data[`${lineNumber}`] === " ") {
+			lineNumber -= 1;
+		}
+		lineNumber = Math.max(1, lineNumber);
+	}
+
+	function goNext() {
+		lineNumber += 1;
+		if (data[`${lineNumber}`] === " ") {
+			lineNumber += 1;
+		}
+		lineNumber = Math.min(lineNumber, Object.entries(data).length);
+	}
+
+	function handleKeydown(event) {
+		// Only navigate if we are in 'verse' mode
+		if (mode !== "verse") return;
+
+		if (event.key === "ArrowRight") {
+			event.preventDefault(); // Stop page from scrolling
+			goNext();
+		} else if (event.key === "ArrowLeft") {
+			event.preventDefault(); // Stop page from scrolling
+			goPrev();
+		}
+	}
+
+	function handleTouchStart(event) {
+		if (mode !== "verse") return;
+		touchStartX = event.changedTouches[0].screenX;
+	}
+
+	function handleTouchEnd(event) {
+		if (mode !== "verse") return;
+		const touchEndX = event.changedTouches[0].screenX;
+		handleSwipe(touchEndX);
+	}
+
+	function handleSwipe(touchEndX) {
+		const threshold = 50;
+
+		// Swiped left
+		if (touchStartX - touchEndX > threshold) {
+			goNext();
+		}
+		// Swiped right
+		else if (touchEndX - touchStartX > threshold) {
+			goPrev();
+		}
+	}
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <div id="page">
 	<button
@@ -28,26 +85,20 @@
 			{/each}
 		</div>
 	{:else}
-		<div id="single-verse">
+		<div
+			id="single-verse"
+			ontouchstart={handleTouchStart}
+			ontouchend={handleTouchEnd}
+		>
 			<button
-				onclick={() => {
-					lineNumber -= 1;
-					if (data[`${lineNumber}`] === " ") {
-						lineNumber -= 1;
-					}
-				}}
+				onclick={goPrev}
 				disabled={lineNumber === 1}
 			>
 				prev
 			</button>
 			<p id="verse">{data[`${lineNumber}`]}</p>
 			<button
-				onclick={() => {
-					lineNumber += 1;
-					if (data[`${lineNumber}`] === " ") {
-						lineNumber += 1;
-					}
-				}}
+				onclick={goNext}
 				disabled={lineNumber === Object.entries(data).length}
 			>
 				next
