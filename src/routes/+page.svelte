@@ -137,13 +137,11 @@
 		--btn-font-size: 0.7em;
 	}
 
-	/* UPDATED: Softer, more comfortable dark mode colors */
 	main.dark {
 		--color-text: #eee;
 		--color-bg: #121212;
 	}
 
-	/* --- Fonts (Unchanged) --- */
 	@font-face {
 		font-family: "Merriweather";
 		src: url("/Merriweather/Merriweather-VariableFont_opsz\,wdth\,wght.ttf")
@@ -173,7 +171,6 @@
 			color 0.3s ease;
 	}
 
-	/* --- Button Styles --- */
 	button#mode,
 	button#reset {
 		width: 3.5em;
@@ -188,7 +185,6 @@
 		border-color: var(--color-text);
 	}
 
-	/* UPDATED: Centered to match screenshot */
 	button#mode {
 		top: 1.9em;
 		left: 50%;
@@ -198,20 +194,18 @@
 		bottom: 17em;
 	}
 
-	/* UPDATED: Added border-color to fix hover */
 	button#mode:hover,
 	button#reset:hover {
 		background-color: var(--color-text);
 		color: var(--color-bg);
-		border-color: var(--color-bg); /* This fixes the disappearing border */
+		border-color: var(--color-bg);
 	}
 
-	/* UPDATED: Added color to theme the SVG arrows */
 	button.nav {
 		appearance: none;
 		border: none;
 		background-color: transparent;
-		color: var(--color-text); /* This will color the SVG icons */
+		color: var(--color-text);
 	}
 	button.nav:disabled {
 		opacity: 30%;
@@ -238,14 +232,12 @@
 		text-align: center;
 	}
 
-	/* NEW: Positions the toggle from the page */
 	main > :global(label.toggle-switch) {
 		position: absolute;
 		top: 1.5em;
 		right: 1.5em;
 	}
 
-	/* --- Media Query (Unchanged) --- */
 	@media (max-width: 640px) {
 		.verse {
 			margin: 0.7em;
