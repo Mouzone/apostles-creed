@@ -1,11 +1,18 @@
-<script>
-	import data from "$lib/apostles-creed-verses.json";
+<script lang="ts">
+	import jsonData from "$lib/apostles-creed-verses.json" assert { type: "json" };
 	import LeftArrow from "$lib/svgs/left-arrow.svelte";
 	import RightArrow from "$lib/svgs/right-arrow.svelte";
 
-	let mode = $state("all");
-	let lineNumber = $state(1);
+	// --- Types ---
+	type VerseData = Record<string, string>;
+	type Mode = "all" | "verse";
 
+	const data: VerseData = jsonData;
+	const verseCount = Object.keys(data).length;
+	const SWIPE_THRESHOLD = 50;
+
+	let mode: Mode = $state("all");
+	let lineNumber = $state(1);
 	let touchStartX = 0;
 
 	function goPrev() {
@@ -21,10 +28,10 @@
 		if (data[`${lineNumber}`] === " ") {
 			lineNumber += 1;
 		}
-		lineNumber = Math.min(lineNumber, Object.entries(data).length);
+		lineNumber = Math.min(lineNumber, verseCount);
 	}
 
-	function handleKeydown(event) {
+	function handleKeydown(event: KeyboardEvent) {
 		// Only navigate if we are in 'verse' mode
 		if (mode !== "verse") return;
 
@@ -37,26 +44,24 @@
 		}
 	}
 
-	function handleTouchStart(event) {
+	function handleTouchStart(event: TouchEvent) {
 		if (mode !== "verse") return;
 		touchStartX = event.changedTouches[0].screenX;
 	}
 
-	function handleTouchEnd(event) {
+	function handleTouchEnd(event: TouchEvent) {
 		if (mode !== "verse") return;
 		const touchEndX = event.changedTouches[0].screenX;
 		handleSwipe(touchEndX);
 	}
 
-	function handleSwipe(touchEndX) {
-		const threshold = 50;
-
+	function handleSwipe(touchEndX: number) {
 		// Swiped left
-		if (touchStartX - touchEndX > threshold) {
+		if (touchStartX - touchEndX > SWIPE_THRESHOLD) {
 			goNext();
 		}
 		// Swiped right
-		else if (touchEndX - touchStartX > threshold) {
+		else if (touchEndX - touchStartX > SWIPE_THRESHOLD) {
 			goPrev();
 		}
 	}
@@ -64,7 +69,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<div id="page">
+<main id="page">
 	<button
 		id="mode"
 		onclick={() => {
@@ -110,12 +115,12 @@
 			<button
 				class="nav"
 				onclick={goNext}
-				disabled={lineNumber === Object.entries(data).length}
+				disabled={lineNumber === verseCount}
 			>
 				<RightArrow />
 			</button>
 		</div>
-		{#if lineNumber === Object.entries(data).length}
+		{#if lineNumber === verseCount}
 			<button
 				id="reset"
 				onclick={() => (lineNumber = 1)}
@@ -124,9 +129,17 @@
 			</button>
 		{/if}
 	{/if}
-</div>
+</main>
 
 <style>
+	:root {
+		--color-text: black;
+		--color-bg: white;
+		--border-main: solid var(--color-text) 0.15em;
+		--border-radius-main: 0.5em;
+		--btn-font-size: 0.7em;
+	}
+
 	@font-face {
 		font-family: "Merriweather";
 		src: url("/Merriweather/Merriweather-VariableFont_opsz\,wdth\,wght.ttf")
@@ -152,23 +165,27 @@
 		justify-content: center;
 	}
 
-	button#mode {
+	button#mode,
+	button#reset {
 		width: 3.5em;
 		height: 2.5em;
-
-		margin-top: 0.9em;
 		position: absolute;
-		top: 1em;
 
 		appearance: none;
-		border: none;
-		background-color: white;
-		color: black;
-		border: solid black 0.15em;
-		border-radius: 0.5em;
-
-		font-size: 0.7em;
+		background-color: var(--color-bg);
+		color: var(--color-text);
+		border: var(--border-main);
+		border-radius: var(--border-radius-main);
+		font-size: var(--btn-font-size);
 	}
+
+	button#mode {
+		top: 1.9em;
+	}
+	button#reset {
+		bottom: 17em;
+	}
+
 	#verses {
 		margin: 4em 1em 1em 1em;
 	}
@@ -180,35 +197,20 @@
 	}
 	#single-verse {
 		height: 100dvh;
-		width: 100dvw;
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0 1em;
 
-		margin: 0 1em 0 1em;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		text-align: center;
 	}
-	button#reset {
-		width: 3.5em;
-		height: 2.5em;
 
-		margin-top: 0.9em;
-		position: absolute;
-		bottom: 17em;
-
-		appearance: none;
-		border: none;
-		background-color: white;
-		color: black;
-		border: solid black 0.15em;
-		border-radius: 0.5em;
-
-		font-size: 0.7em;
-	}
 	button#mode:hover,
 	button#reset:hover {
-		background-color: black;
-		color: white;
+		background-color: var(--color-text);
+		color: var(--color-bg);
 	}
 	button.nav {
 		appearance: none;
