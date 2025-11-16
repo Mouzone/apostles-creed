@@ -148,20 +148,21 @@
 		width: 3.5em;
 		height: 2.5em;
 
+		margin-top: 0.9em;
 		position: absolute;
 		top: 1em;
 
 		appearance: none;
 		border: none;
-		background-color: black;
-		color: white;
+		background-color: white;
+		color: black;
+		border: solid black 0.15em;
 		border-radius: 0.5em;
 
-		font-size: 0.6em;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+		font-size: 0.7em;
 	}
 	#verses {
-		margin: 2em 1em 1em 1em;
+		margin: 4em 1em 1em 1em;
 	}
 	p {
 		margin: 0;
