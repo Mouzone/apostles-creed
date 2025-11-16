@@ -145,7 +145,7 @@
 	}
 
 	button#mode {
-		width: 2.5em;
+		width: 3.5em;
 		height: 2.5em;
 
 		position: absolute;
@@ -155,7 +155,7 @@
 		border: none;
 		background-color: black;
 		color: white;
-		border-radius: 1.5em;
+		border-radius: 0.5em;
 
 		font-size: 0.6em;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
