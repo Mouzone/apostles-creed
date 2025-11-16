@@ -147,8 +147,8 @@
 	}
 
 	main.dark {
-		--color-text: white; /* Light text */
-		--color-bg: black; /* Dark background */
+		--color-text: white;
+		--color-bg: black;
 	}
 
 	@font-face {
