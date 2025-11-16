@@ -1,5 +1,6 @@
 <script lang="ts">
 	import jsonData from "$lib/apostles-creed-verses.json" assert { type: "json" };
+	import Toggle from "$lib/components/Toggle.svelte";
 	import LeftArrow from "$lib/svgs/left-arrow.svelte";
 	import RightArrow from "$lib/svgs/right-arrow.svelte";
 
@@ -13,6 +14,7 @@
 
 	let mode: Mode = $state("all");
 	let lineNumber = $state(1);
+	let isDarkMode = $state(false);
 	let touchStartX = 0;
 
 	function goPrev() {
@@ -69,7 +71,10 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<main id="page">
+<main
+	id="page"
+	class:dark={isDarkMode}
+>
 	<button
 		id="mode"
 		onclick={() => {
@@ -129,6 +134,7 @@
 			</button>
 		{/if}
 	{/if}
+	<Toggle bind:checked={isDarkMode} />
 </main>
 
 <style>
@@ -138,6 +144,11 @@
 		--border-main: solid var(--color-text) 0.15em;
 		--border-radius-main: 0.5em;
 		--btn-font-size: 0.7em;
+	}
+
+	main.dark {
+		--color-text: white; /* Light text */
+		--color-bg: black; /* Dark background */
 	}
 
 	@font-face {
@@ -163,6 +174,12 @@
 
 		display: flex;
 		justify-content: center;
+
+		background-color: var(--color-bg);
+		color: var(--color-text);
+		transition:
+			background-color 0.3s ease,
+			color 0.3s ease;
 	}
 
 	button#mode,
@@ -177,6 +194,7 @@
 		border: var(--border-main);
 		border-radius: var(--border-radius-main);
 		font-size: var(--btn-font-size);
+		border-color: var(--color-text);
 	}
 
 	button#mode {
