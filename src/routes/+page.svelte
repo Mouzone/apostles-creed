@@ -7,16 +7,17 @@
 	// --- Types ---
 	type VerseData = Record<string, string>;
 	type Mode = "all" | "verse";
-
+	// --- Constants ---
 	const data: VerseData = jsonData;
 	const verseCount = Object.keys(data).length;
 	const SWIPE_THRESHOLD = 50;
-
+	// --- State ---
 	let mode: Mode = $state("all");
 	let lineNumber = $state(1);
 	let isDarkMode = $state(false);
 	let touchStartX = 0;
 
+	// --- Functions (Unchanged) ---
 	function goPrev() {
 		lineNumber -= 1;
 		if (data[`${lineNumber}`] === " ") {
@@ -24,7 +25,6 @@
 		}
 		lineNumber = Math.max(1, lineNumber);
 	}
-
 	function goNext() {
 		lineNumber += 1;
 		if (data[`${lineNumber}`] === " ") {
@@ -32,38 +32,29 @@
 		}
 		lineNumber = Math.min(lineNumber, verseCount);
 	}
-
 	function handleKeydown(event: KeyboardEvent) {
-		// Only navigate if we are in 'verse' mode
 		if (mode !== "verse") return;
-
 		if (event.key === "ArrowRight") {
-			event.preventDefault(); // Stop page from scrolling
+			event.preventDefault();
 			goNext();
 		} else if (event.key === "ArrowLeft") {
-			event.preventDefault(); // Stop page from scrolling
+			event.preventDefault();
 			goPrev();
 		}
 	}
-
 	function handleTouchStart(event: TouchEvent) {
 		if (mode !== "verse") return;
 		touchStartX = event.changedTouches[0].screenX;
 	}
-
 	function handleTouchEnd(event: TouchEvent) {
 		if (mode !== "verse") return;
 		const touchEndX = event.changedTouches[0].screenX;
 		handleSwipe(touchEndX);
 	}
-
 	function handleSwipe(touchEndX: number) {
-		// Swiped left
 		if (touchStartX - touchEndX > SWIPE_THRESHOLD) {
 			goNext();
-		}
-		// Swiped right
-		else if (touchEndX - touchStartX > SWIPE_THRESHOLD) {
+		} else if (touchEndX - touchStartX > SWIPE_THRESHOLD) {
 			goPrev();
 		}
 	}
@@ -146,11 +137,13 @@
 		--btn-font-size: 0.7em;
 	}
 
+	/* UPDATED: Softer, more comfortable dark mode colors */
 	main.dark {
-		--color-text: white;
-		--color-bg: black;
+		--color-text: #eee;
+		--color-bg: #121212;
 	}
 
+	/* --- Fonts (Unchanged) --- */
 	@font-face {
 		font-family: "Merriweather";
 		src: url("/Merriweather/Merriweather-VariableFont_opsz\,wdth\,wght.ttf")
@@ -165,16 +158,14 @@
 		font-weight: 300 800;
 		font-style: normal;
 	}
+
 	#page {
 		width: 100dvw;
 		box-sizing: border-box;
-
 		font-family: "Open Sans";
 		font-size: 1.35em;
-
 		display: flex;
 		justify-content: center;
-
 		background-color: var(--color-bg);
 		color: var(--color-text);
 		transition:
@@ -182,12 +173,12 @@
 			color 0.3s ease;
 	}
 
+	/* --- Button Styles --- */
 	button#mode,
 	button#reset {
 		width: 3.5em;
 		height: 2.5em;
 		position: absolute;
-
 		appearance: none;
 		background-color: var(--color-bg);
 		color: var(--color-text);
@@ -197,13 +188,36 @@
 		border-color: var(--color-text);
 	}
 
+	/* UPDATED: Centered to match screenshot */
 	button#mode {
 		top: 1.9em;
+		left: 50%;
+		transform: translateX(-50%);
 	}
 	button#reset {
 		bottom: 17em;
 	}
 
+	/* UPDATED: Added border-color to fix hover */
+	button#mode:hover,
+	button#reset:hover {
+		background-color: var(--color-text);
+		color: var(--color-bg);
+		border-color: var(--color-bg); /* This fixes the disappearing border */
+	}
+
+	/* UPDATED: Added color to theme the SVG arrows */
+	button.nav {
+		appearance: none;
+		border: none;
+		background-color: transparent;
+		color: var(--color-text); /* This will color the SVG icons */
+	}
+	button.nav:disabled {
+		opacity: 30%;
+	}
+
+	/* --- Layout (Unchanged) --- */
 	#verses {
 		margin: 4em 1em 1em 1em;
 	}
@@ -218,26 +232,20 @@
 		width: 100%;
 		box-sizing: border-box;
 		padding: 0 1em;
-
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		text-align: center;
 	}
 
-	button#mode:hover,
-	button#reset:hover {
-		background-color: var(--color-text);
-		color: var(--color-bg);
+	/* NEW: Positions the toggle from the page */
+	main > :global(label.toggle-switch) {
+		position: absolute;
+		top: 1.5em;
+		right: 1.5em;
 	}
-	button.nav {
-		appearance: none;
-		border: none;
-		background-color: transparent;
-	}
-	button.nav:disabled {
-		opacity: 30%;
-	}
+
+	/* --- Media Query (Unchanged) --- */
 	@media (max-width: 640px) {
 		.verse {
 			margin: 0.7em;
