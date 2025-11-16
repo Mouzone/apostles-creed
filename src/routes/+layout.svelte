@@ -23,7 +23,7 @@
 </script>
 
 <svelte:head>
-	<title>New Project</title>
+	<title>Apostles Creed</title>
 </svelte:head>
 
 {@render children()}

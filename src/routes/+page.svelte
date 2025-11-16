@@ -115,6 +115,14 @@
 				<RightArrow />
 			</button>
 		</div>
+		{#if lineNumber === Object.entries(data).length}
+			<button
+				id="reset"
+				onclick={() => (lineNumber = 1)}
+			>
+				Reset
+			</button>
+		{/if}
 	{/if}
 </div>
 
@@ -180,6 +188,28 @@
 		align-items: center;
 		text-align: center;
 	}
+	button#reset {
+		width: 3.5em;
+		height: 2.5em;
+
+		margin-top: 0.9em;
+		position: absolute;
+		bottom: 17em;
+
+		appearance: none;
+		border: none;
+		background-color: white;
+		color: black;
+		border: solid black 0.15em;
+		border-radius: 0.5em;
+
+		font-size: 0.7em;
+	}
+	button#mode:hover,
+	button#reset:hover {
+		background-color: black;
+		color: white;
+	}
 	button.nav {
 		appearance: none;
 		border: none;
@@ -191,6 +221,9 @@
 	@media (max-width: 640px) {
 		.verse {
 			margin: 0.7em;
+		}
+		button#reset {
+			bottom: 21em;
 		}
 	}
 </style>
