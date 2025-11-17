@@ -5,21 +5,27 @@
 	import RightArrow from "$lib/svgs/right-arrow.svelte";
 	import Settings from "$lib/svgs/settings.svelte";
 
-	// --- Types ---
 	type VerseData = Record<string, string>;
 	type Mode = "all" | "verse";
-	// --- Constants ---
+
 	const data: VerseData = jsonData;
 	const verseCount = Object.keys(data).length;
 	const SWIPE_THRESHOLD = 50;
-	// --- State ---
+
 	let dialogElement: null | HTMLDialogElement = $state(null);
 	let mode: Mode = $state("all");
 	let lineNumber = $state(1);
 	let isDarkMode = $state(false);
 	let touchStartX = 0;
 
-	// --- Functions (Unchanged) ---
+	$effect(() => {
+		if (isDarkMode) {
+			document.body.classList.add("dark");
+		} else {
+			document.body.classList.remove("dark");
+		}
+	});
+
 	function goPrev() {
 		lineNumber -= 1;
 		if (data[`${lineNumber}`] === " ") {
@@ -64,10 +70,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<main
-	id="page"
-	class:dark={isDarkMode}
->
+<main id="page">
 	<dialog bind:this={dialogElement}>
 		<h2>Settings</h2>
 		<hr />
@@ -88,7 +91,7 @@
 			method="dialog"
 			class="button-row"
 		>
-			<button>Close</button>
+			<button id="close">Close</button>
 		</form>
 	</dialog>
 	{#if mode === "all"}
@@ -169,7 +172,24 @@
 		--btn-font-size: 0.7em;
 	}
 
-	main.dark {
+	:global(html) {
+		background-color: var(--color-bg);
+		color: var(--color-text);
+		transition:
+			background-color 0.3s ease,
+			color 0.3s ease;
+	}
+
+	:global(body) {
+		background-color: var(--color-bg);
+		color: var(--color-text);
+		margin: 0;
+		transition:
+			background-color 0.3s ease,
+			color 0.3s ease;
+	}
+
+	:global(body.dark) {
 		--color-text: #eee;
 		--color-bg: #121212;
 	}
@@ -189,11 +209,46 @@
 		font-style: normal;
 	}
 
+	dialog {
+		border-radius: var(--border-radius-main);
+		background-color: var(--color-bg);
+		color: var(--color-text);
+		border: none;
+		padding: 1.5rem;
+		min-width: 300px;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+	}
+
+	dialog::backdrop {
+		background: rgba(0, 0, 0, 0.4);
+		backdrop-filter: blur(3px);
+	}
+
+	h2 {
+		text-align: center;
+		margin: 0;
+	}
+
+	.button-row {
+		display: flex;
+		justify-content: center;
+		margin-top: 0.5rem;
+	}
+
+	hr {
+		border: none;
+		border-top: 1px solid var(--color-text);
+		opacity: 0.2;
+		margin-block: 0.5rem;
+	}
+
 	#settings-grid {
 		display: grid;
 		grid-template-columns: 1fr auto;
 		gap: 1rem;
 		align-items: center;
+		padding-block: 0.5rem;
+		justify-items: center;
 	}
 
 	#settings-grid label {
@@ -220,7 +275,8 @@
 		margin: 0;
 	}
 	button#mode,
-	button#reset {
+	button#reset,
+	button#close {
 		width: 3.5em;
 		height: 2.5em;
 		appearance: none;
@@ -236,7 +292,6 @@
 		appearance: none;
 		border: none;
 		background-color: transparent;
-
 		color: var(--color-text);
 	}
 
@@ -253,6 +308,7 @@
 		bottom: 17em;
 	}
 
+	button#close:hover,
 	button#mode:hover,
 	button#reset:hover {
 		background-color: var(--color-text);
@@ -270,7 +326,6 @@
 		opacity: 30%;
 	}
 
-	/* --- Layout (Unchanged) --- */
 	#verses {
 		margin: 4em 1em 1em 1em;
 	}
