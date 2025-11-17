@@ -3,6 +3,7 @@
 	import Toggle from "$lib/components/Toggle.svelte";
 	import LeftArrow from "$lib/svgs/left-arrow.svelte";
 	import RightArrow from "$lib/svgs/right-arrow.svelte";
+	import Settings from "$lib/svgs/settings.svelte";
 
 	// --- Types ---
 	type VerseData = Record<string, string>;
@@ -12,6 +13,7 @@
 	const verseCount = Object.keys(data).length;
 	const SWIPE_THRESHOLD = 50;
 	// --- State ---
+	let dialogElement: null | HTMLDialogElement = $state(null);
 	let mode: Mode = $state("all");
 	let lineNumber = $state(1);
 	let isDarkMode = $state(false);
@@ -66,19 +68,7 @@
 	id="page"
 	class:dark={isDarkMode}
 >
-	<button
-		id="mode"
-		onclick={() => {
-			mode = mode === "all" ? "verse" : "all";
-			lineNumber = 1;
-		}}
-	>
-		{#if mode === "all"}
-			All
-		{:else}
-			1
-		{/if}
-	</button>
+	<dialog bind:this={dialogElement}></dialog>
 	{#if mode === "all"}
 		<div id="verses">
 			{#each Object.values(data) as verse, i}
@@ -125,7 +115,27 @@
 			</button>
 		{/if}
 	{/if}
-	<Toggle bind:checked={isDarkMode} />
+	<div id="menu">
+		<button
+			id="mode"
+			onclick={() => {
+				mode = mode === "all" ? "verse" : "all";
+				lineNumber = 1;
+			}}
+		>
+			{#if mode === "all"}
+				All
+			{:else}
+				1
+			{/if}
+		</button>
+		<button
+			id="settings"
+			onclick={() => dialogElement?.showModal()}
+		>
+			<Settings />
+		</button>
+	</div>
 </main>
 
 <style>
@@ -175,7 +185,6 @@
 	button#reset {
 		width: 3.5em;
 		height: 2.5em;
-		position: absolute;
 		appearance: none;
 		background-color: var(--color-bg);
 		color: var(--color-text);
@@ -185,12 +194,23 @@
 		border-color: var(--color-text);
 	}
 
-	button#mode {
-		top: 1.9em;
-		left: 50%;
-		transform: translateX(-50%);
+	button#settings {
+		appearance: none;
+		border: none;
+		background-color: transparent;
+	}
+
+	div#menu {
+		position: fixed;
+		bottom: 1em;
+		right: 1em;
+		display: flex;
+		align-items: center;
+		gap: 0.2em;
+		z-index: 10;
 	}
 	button#reset {
+		position: absolute;
 		bottom: 17em;
 	}
 
@@ -230,12 +250,6 @@
 		justify-content: space-between;
 		align-items: center;
 		text-align: center;
-	}
-
-	main > :global(label.toggle-switch) {
-		position: absolute;
-		top: 1.5em;
-		right: 1.5em;
 	}
 
 	@media (max-width: 640px) {
