@@ -68,7 +68,29 @@
 	id="page"
 	class:dark={isDarkMode}
 >
-	<dialog bind:this={dialogElement}></dialog>
+	<dialog bind:this={dialogElement}>
+		<h2>Settings</h2>
+		<hr />
+
+		<div id="settings-grid">
+			<label for="dark-mode">Dark Mode</label>
+			<Toggle bind:checked={isDarkMode} />
+
+			<label for="orientation">Orientation</label>
+			<select id="orientation">
+				<option value="en">left, right</option>
+				<option value="es">right, left</option>
+			</select>
+		</div>
+
+		<hr />
+		<form
+			method="dialog"
+			class="button-row"
+		>
+			<button>Close</button>
+		</form>
+	</dialog>
 	{#if mode === "all"}
 		<div id="verses">
 			{#each Object.values(data) as verse, i}
@@ -167,6 +189,18 @@
 		font-style: normal;
 	}
 
+	#settings-grid {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 1rem;
+		align-items: center;
+	}
+
+	#settings-grid label {
+		font-weight: 500;
+		justify-self: start;
+	}
+
 	#page {
 		width: 100dvw;
 		box-sizing: border-box;
@@ -181,6 +215,10 @@
 			color 0.3s ease;
 	}
 
+	button {
+		padding: 0;
+		margin: 0;
+	}
 	button#mode,
 	button#reset {
 		width: 3.5em;
@@ -198,6 +236,8 @@
 		appearance: none;
 		border: none;
 		background-color: transparent;
+
+		color: var(--color-text);
 	}
 
 	div#menu {
@@ -206,8 +246,7 @@
 		right: 1em;
 		display: flex;
 		align-items: center;
-		gap: 0.2em;
-		z-index: 10;
+		gap: 0.3em;
 	}
 	button#reset {
 		position: absolute;
