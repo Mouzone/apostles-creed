@@ -10,7 +10,7 @@
 			viewBox="0 0 24 24"
 			fill="none"
 			stroke="currentColor"
-			stroke-width="2"
+			stroke-width="3"
 			stroke-linecap="round"
 			stroke-linejoin="round"
 		>
@@ -33,8 +33,8 @@
 <style>
 	button.close-btn {
 		position: absolute;
-		top: 0.5rem;
-		right: 0.5rem;
+		top: 0.2rem;
+		right: 0.2rem;
 
 		/* Reset default button styles to look like an icon */
 		background: transparent;

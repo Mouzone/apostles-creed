@@ -242,6 +242,7 @@
 	}
 
 	#settings-header {
+		margin-top: 0.4em;
 		text-align: center;
 		font-weight: bold;
 		font-size: larger;
