@@ -10,7 +10,7 @@
 	import UpArrow from "$lib/svgs/up-arrow.svelte";
 
 	type VerseData = Record<string, string>;
-	type Mode = "all" | "verse";
+	type Mode = "all" | "line";
 
 	const data: VerseData = jsonData;
 	const verseCount = Object.keys(data).length;
@@ -64,7 +64,7 @@
 		lineNumber = Math.min(lineNumber, verseCount);
 	}
 	function handleKeydown(event: KeyboardEvent) {
-		if (mode !== "verse") return;
+		if (mode !== "line") return;
 		if (orientation === "horizontal") {
 			if (event.key === "ArrowRight") {
 				event.preventDefault();
@@ -84,12 +84,12 @@
 		}
 	}
 	function handleTouchStart(event: TouchEvent) {
-		if (mode !== "verse") return;
+		if (mode !== "line") return;
 		touchStartX = event.changedTouches[0].screenX;
 		touchStartY = event.changedTouches[0].screenY;
 	}
 	function handleTouchEnd(event: TouchEvent) {
-		if (mode !== "verse") return;
+		if (mode !== "line") return;
 		const touchEndX = event.changedTouches[0].screenX;
 		const touchEndY = event.changedTouches[0].screenY;
 		handleSwipe(touchEndX, touchEndY);
@@ -147,7 +147,7 @@
 		</div>
 	{:else}
 		<div
-			id="single-verse"
+			id="line"
 			style:flex-direction={orientation === "vertical" ? "column" : "row"}
 			ontouchstart={handleTouchStart}
 			ontouchend={handleTouchEnd}
@@ -189,14 +189,14 @@
 		<button
 			id="mode"
 			onclick={() => {
-				mode = mode === "all" ? "verse" : "all";
+				mode = mode === "all" ? "line" : "all";
 				lineNumber = 1;
 			}}
 		>
 			{#if mode === "all"}
 				All
-			{:else}
-				1
+			{:else if mode === "line"}
+				Line
 			{/if}
 		</button>
 		<button
@@ -378,7 +378,7 @@
 	.verse {
 		margin: 0.35em;
 	}
-	#single-verse {
+	#line {
 		height: 100dvh;
 		width: 100%;
 		box-sizing: border-box;
