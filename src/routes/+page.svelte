@@ -342,7 +342,7 @@
 	}
 
 	#verses {
-		margin: 4em 1em 1em 1em;
+		margin: 2em 1em 1em 1em;
 	}
 	p {
 		margin: 0;
