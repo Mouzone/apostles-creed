@@ -1,6 +1,8 @@
 <script lang="ts">
 	import jsonData from "$lib/apostles-creed-verses.json" assert { type: "json" };
-	import Toggle from "$lib/components/Toggle.svelte";
+	import CloseDialog from "$lib/components/CloseDialog.svelte";
+	import DarkModeToggle from "$lib/components/SegmentControl.svelte/DarkModeToggle.svelte";
+	import OrientationToggle from "$lib/components/SegmentControl.svelte/OrientationToggle.svelte";
 	import LeftArrow from "$lib/svgs/left-arrow.svelte";
 	import RightArrow from "$lib/svgs/right-arrow.svelte";
 	import Settings from "$lib/svgs/settings.svelte";
@@ -17,6 +19,7 @@
 	let lineNumber = $state(1);
 	let isDarkMode = $state(false);
 	let isSettingsOpen = $state(false);
+	let orientation: "horizontal" | "vertical" = $state("horizontal");
 	let touchStartX = 0;
 
 	$effect(() => {
@@ -84,27 +87,17 @@
 		bind:this={dialogElement}
 		onclose={() => (isSettingsOpen = false)}
 	>
-		<h2>Settings</h2>
+		<CloseDialog />
+		<p id="settings-header">Settings</p>
 		<hr />
 
 		<div id="settings-grid">
-			<label for="dark-mode">Dark Mode</label>
-			<Toggle bind:checked={isDarkMode} />
+			<label for="dark-mode">Theme</label>
+			<DarkModeToggle bind:checked={isDarkMode} />
 
 			<label for="orientation">Orientation</label>
-			<select id="orientation">
-				<option value="en">left, right</option>
-				<option value="es">right, left</option>
-			</select>
+			<OrientationToggle bind:orientation />
 		</div>
-
-		<hr />
-		<form
-			method="dialog"
-			class="button-row"
-		>
-			<button id="close">Close</button>
-		</form>
 	</dialog>
 	{#if mode === "all"}
 		<div id="verses">
@@ -225,29 +218,20 @@
 	}
 
 	dialog {
+		position: relative;
 		border-radius: var(--border-radius-main);
 		background-color: var(--color-bg);
 		color: var(--color-text);
 		border: none;
-		padding: 1.5rem;
-		min-width: 300px;
+		padding: 1rem;
+		min-width: 200px;
 		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+		font-size: 0.8em;
 	}
 
 	dialog::backdrop {
 		background: rgba(0, 0, 0, 0.4);
 		backdrop-filter: blur(3px);
-	}
-
-	h2 {
-		text-align: center;
-		margin: 0;
-	}
-
-	.button-row {
-		display: flex;
-		justify-content: center;
-		margin-top: 0.5rem;
 	}
 
 	hr {
@@ -257,6 +241,11 @@
 		margin-block: 0.5rem;
 	}
 
+	#settings-header {
+		text-align: center;
+		font-weight: bold;
+		font-size: larger;
+	}
 	#settings-grid {
 		display: grid;
 		grid-template-columns: 1fr auto;
@@ -290,8 +279,7 @@
 		margin: 0;
 	}
 	button#mode,
-	button#reset,
-	button#close {
+	button#reset {
 		width: 3.5em;
 		height: 2.5em;
 		appearance: none;
@@ -323,7 +311,6 @@
 		bottom: 17em;
 	}
 
-	button#close:hover,
 	button#mode:hover,
 	button#reset:hover {
 		background-color: var(--color-text);
