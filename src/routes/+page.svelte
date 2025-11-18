@@ -20,9 +20,9 @@
 
 	$effect(() => {
 		if (isDarkMode) {
-			document.body.classList.add("dark");
+			document.documentElement.classList.add("dark");
 		} else {
-			document.body.classList.remove("dark");
+			document.documentElement.classList.remove("dark");
 		}
 	});
 
@@ -189,7 +189,7 @@
 			color 0.3s ease;
 	}
 
-	:global(body.dark) {
+	:global(html.dark) {
 		--color-text: #eee;
 		--color-bg: #121212;
 	}
