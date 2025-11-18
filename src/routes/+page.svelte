@@ -371,7 +371,7 @@
 		height: 100dvh;
 		width: 100%;
 		box-sizing: border-box;
-		padding: 1em;
+		padding: 2em 1em;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
