@@ -16,6 +16,7 @@
 	let mode: Mode = $state("all");
 	let lineNumber = $state(1);
 	let isDarkMode = $state(false);
+	let isSettingsOpen = $state(false);
 	let touchStartX = 0;
 
 	$effect(() => {
@@ -23,6 +24,14 @@
 			document.documentElement.classList.add("dark");
 		} else {
 			document.documentElement.classList.remove("dark");
+		}
+	});
+
+	$effect(() => {
+		if (isSettingsOpen) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "";
 		}
 	});
 
@@ -71,7 +80,10 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <main id="page">
-	<dialog bind:this={dialogElement}>
+	<dialog
+		bind:this={dialogElement}
+		onclose={() => (isSettingsOpen = false)}
+	>
 		<h2>Settings</h2>
 		<hr />
 
@@ -156,7 +168,10 @@
 		</button>
 		<button
 			id="settings"
-			onclick={() => dialogElement?.showModal()}
+			onclick={() => {
+				dialogElement?.showModal();
+				isSettingsOpen = true;
+			}}
 		>
 			<Settings />
 		</button>
