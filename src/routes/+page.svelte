@@ -3,9 +3,11 @@
 	import CloseDialog from "$lib/components/CloseDialog.svelte";
 	import DarkModeToggle from "$lib/components/SegmentControl.svelte/DarkModeToggle.svelte";
 	import OrientationToggle from "$lib/components/SegmentControl.svelte/OrientationToggle.svelte";
+	import DownArrow from "$lib/svgs/down-arrow.svelte";
 	import LeftArrow from "$lib/svgs/left-arrow.svelte";
 	import RightArrow from "$lib/svgs/right-arrow.svelte";
 	import Settings from "$lib/svgs/settings.svelte";
+	import UpArrow from "$lib/svgs/up-arrow.svelte";
 
 	type VerseData = Record<string, string>;
 	type Mode = "all" | "verse";
@@ -38,6 +40,14 @@
 		}
 	});
 
+	$effect(() => {
+		if (orientation === "horizontal") {
+			document.body.style.overflow = "hidden";
+		} else if (orientation === "vertical") {
+			document.body.style.overflow = "";
+		}
+	});
+
 	function goPrev() {
 		lineNumber -= 1;
 		if (data[`${lineNumber}`] === " ") {
@@ -54,12 +64,22 @@
 	}
 	function handleKeydown(event: KeyboardEvent) {
 		if (mode !== "verse") return;
-		if (event.key === "ArrowRight") {
-			event.preventDefault();
-			goNext();
-		} else if (event.key === "ArrowLeft") {
-			event.preventDefault();
-			goPrev();
+		if (orientation === "horizontal") {
+			if (event.key === "ArrowRight") {
+				event.preventDefault();
+				goNext();
+			} else if (event.key === "ArrowLeft") {
+				event.preventDefault();
+				goPrev();
+			}
+		} else if (orientation === "vertical") {
+			if (event.key === "ArrowDown") {
+				event.preventDefault();
+				goNext();
+			} else if (event.key === "ArrowUp") {
+				event.preventDefault();
+				goPrev();
+			}
 		}
 	}
 	function handleTouchStart(event: TouchEvent) {
@@ -117,6 +137,7 @@
 	{:else}
 		<div
 			id="single-verse"
+			style:flex-direction={orientation === "vertical" ? "column" : "row"}
 			ontouchstart={handleTouchStart}
 			ontouchend={handleTouchEnd}
 		>
@@ -125,7 +146,11 @@
 				onclick={goPrev}
 				disabled={lineNumber === 1}
 			>
-				<LeftArrow />
+				{#if orientation === "horizontal"}
+					<LeftArrow />
+				{:else if orientation === "vertical"}
+					<UpArrow />
+				{/if}
 			</button>
 			<p>{data[`${lineNumber}`]}</p>
 			<button
@@ -133,7 +158,11 @@
 				onclick={goNext}
 				disabled={lineNumber === verseCount}
 			>
-				<RightArrow />
+				{#if orientation === "horizontal"}
+					<RightArrow />
+				{:else if orientation === "vertical"}
+					<DownArrow />
+				{/if}
 			</button>
 		</div>
 		{#if lineNumber === verseCount}
@@ -342,7 +371,7 @@
 		height: 100dvh;
 		width: 100%;
 		box-sizing: border-box;
-		padding: 0 1em;
+		padding: 1em;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
