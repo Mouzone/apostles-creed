@@ -23,6 +23,7 @@
 	let isSettingsOpen = $state(false);
 	let orientation: "horizontal" | "vertical" = $state("horizontal");
 	let touchStartX = 0;
+	let touchStartY = 0;
 
 	$effect(() => {
 		if (isDarkMode) {
@@ -85,17 +86,27 @@
 	function handleTouchStart(event: TouchEvent) {
 		if (mode !== "verse") return;
 		touchStartX = event.changedTouches[0].screenX;
+		touchStartY = event.changedTouches[0].screenY;
 	}
 	function handleTouchEnd(event: TouchEvent) {
 		if (mode !== "verse") return;
 		const touchEndX = event.changedTouches[0].screenX;
-		handleSwipe(touchEndX);
+		const touchEndY = event.changedTouches[0].screenY;
+		handleSwipe(touchEndX, touchEndY);
 	}
-	function handleSwipe(touchEndX: number) {
-		if (touchStartX - touchEndX > SWIPE_THRESHOLD) {
-			goNext();
-		} else if (touchEndX - touchStartX > SWIPE_THRESHOLD) {
-			goPrev();
+	function handleSwipe(touchEndX: number, touchEndY: number) {
+		if (orientation === "horizontal") {
+			if (touchStartX - touchEndX > SWIPE_THRESHOLD) {
+				goNext();
+			} else if (touchEndX - touchStartX > SWIPE_THRESHOLD) {
+				goPrev();
+			}
+		} else if (orientation === "vertical") {
+			if (touchStartY - touchEndY > SWIPE_THRESHOLD) {
+				goNext();
+			} else if (touchEndY - touchStartY > SWIPE_THRESHOLD) {
+				goPrev();
+			}
 		}
 	}
 </script>
