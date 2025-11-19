@@ -120,11 +120,25 @@
 {/if}
 
 <style>
+	#line {
+		width: 100dvw;
+		height: 100dvh;
+		position: fixed;
+		overflow: hidden;
+
+		box-sizing: border-box;
+		padding: 2em 1em;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		text-align: center;
+	}
+
 	button#reset {
 		width: 3.5em;
 		height: 2.5em;
 
-		position: absolute;
+		position: fixed;
 		bottom: 17.5em;
 
 		appearance: none;
@@ -149,15 +163,5 @@
 	}
 	button.nav:disabled {
 		opacity: 30%;
-	}
-	#line {
-		height: 100dvh;
-		width: 100%;
-		box-sizing: border-box;
-		padding: 2em 1em;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		text-align: center;
 	}
 </style>
