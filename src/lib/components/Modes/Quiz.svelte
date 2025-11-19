@@ -7,7 +7,6 @@
 	let userInput = $state("");
 	let chances = $state(3);
 
-	// lock lineNumber to max length
 	function onSubmit() {
 		chances -= 1;
 		userInput = "";
