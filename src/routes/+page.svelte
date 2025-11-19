@@ -92,4 +92,12 @@
 			background-color 0.3s ease,
 			color 0.3s ease;
 	}
+
+	@media (hover: hover) {
+		:global(button#mode, button#hover) {
+			background-color: var(--color-text);
+			color: var(--color-bg);
+			border-color: var(--color-bg);
+		}
+	}
 </style>

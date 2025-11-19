@@ -149,12 +149,6 @@
 		font-size: var(--btn-font-size);
 		border-color: var(--color-text);
 	}
-
-	button#reset:hover {
-		background-color: var(--color-text);
-		color: var(--color-bg);
-		border-color: var(--color-bg);
-	}
 	button.nav {
 		appearance: none;
 		border: none;

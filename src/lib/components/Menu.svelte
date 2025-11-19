@@ -145,10 +145,4 @@
 		align-items: center;
 		gap: 0.3em;
 	}
-
-	button#mode:hover {
-		background-color: var(--color-text);
-		color: var(--color-bg);
-		border-color: var(--color-bg);
-	}
 </style>
