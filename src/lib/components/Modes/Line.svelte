@@ -22,14 +22,14 @@
 
 	function goPrev() {
 		lineNumber -= 1;
-		if (data[`${lineNumber}`] === " ") {
+		if (data[lineNumber] === " ") {
 			lineNumber -= 1;
 		}
 		lineNumber = Math.max(1, lineNumber);
 	}
 	function goNext() {
 		lineNumber += 1;
-		if (data[`${lineNumber}`] === " ") {
+		if (data[lineNumber] === " ") {
 			lineNumber += 1;
 		}
 		lineNumber = Math.min(lineNumber, verseCount);
@@ -97,7 +97,7 @@
 			<UpArrow />
 		{/if}
 	</button>
-	<p>{data[`${lineNumber}`]}</p>
+	<p>{data[lineNumber]}</p>
 	<button
 		class="nav"
 		onclick={goNext}

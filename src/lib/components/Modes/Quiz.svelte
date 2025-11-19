@@ -9,13 +9,13 @@
 
 	function onSubmit() {
 		chances -= 1;
-		userInput = "";
 		if (lineNumber === Object.keys(data).length + 1) return;
 
-		if (chances === 0 || userInput === data[`${lineNumber}`]) {
+		if (chances === 0 || userInput === data[lineNumber]) {
 			lineNumber += 1;
 			chances = 3;
 		}
+		userInput = "";
 	}
 </script>
 
