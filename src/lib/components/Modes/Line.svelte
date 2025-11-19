@@ -123,6 +123,10 @@
 	button#reset {
 		width: 3.5em;
 		height: 2.5em;
+
+		position: absolute;
+		bottom: 17.5em;
+
 		appearance: none;
 		background-color: var(--color-bg);
 		color: var(--color-text);
@@ -131,10 +135,7 @@
 		font-size: var(--btn-font-size);
 		border-color: var(--color-text);
 	}
-	button#reset {
-		position: absolute;
-		bottom: 17em;
-	}
+
 	button#reset:hover {
 		background-color: var(--color-text);
 		color: var(--color-bg);
@@ -158,11 +159,5 @@
 		justify-content: space-between;
 		align-items: center;
 		text-align: center;
-	}
-
-	@media (max-width: 640px) {
-		button#reset {
-			bottom: 21em;
-		}
 	}
 </style>
