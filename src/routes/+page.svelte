@@ -16,14 +16,6 @@
 			document.documentElement.classList.remove("dark");
 		}
 	});
-
-	$effect(() => {
-		if (orientation === "horizontal") {
-			document.body.style.overflow = "hidden";
-		} else if (orientation === "vertical") {
-			document.body.style.overflow = "";
-		}
-	});
 </script>
 
 <main>
