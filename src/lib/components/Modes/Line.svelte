@@ -20,14 +20,6 @@
 	let touchStartX = 0;
 	let touchStartY = 0;
 
-	$effect(() => {
-		if (orientation === "horizontal") {
-			document.body.style.overflow = "hidden";
-		} else if (orientation === "vertical") {
-			document.body.style.overflow = "";
-		}
-	});
-
 	function goPrev() {
 		lineNumber -= 1;
 		if (data[`${lineNumber}`] === " ") {

@@ -8,15 +8,22 @@
 	let {
 		mode = $bindable(),
 		isDarkMode = $bindable(),
-		isSettingsOpen = $bindable(),
 		orientation = $bindable(),
 	} = $props<{
 		mode: Mode;
 		isDarkMode: boolean;
-		isSettingsOpen: boolean;
 		orientation: Orientation;
 	}>();
 	let dialogElement: null | HTMLDialogElement = $state(null);
+	let isSettingsOpen = $state(false);
+
+	$effect(() => {
+		if (isSettingsOpen) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "";
+		}
+	});
 </script>
 
 <dialog

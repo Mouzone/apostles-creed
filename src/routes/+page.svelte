@@ -8,7 +8,6 @@
 	let mode: Mode = $state("all");
 	let isDarkMode = $state(false);
 	let orientation: Orientation = $state("horizontal");
-	let isSettingsOpen = $state(false);
 
 	$effect(() => {
 		if (isDarkMode) {
@@ -19,9 +18,9 @@
 	});
 
 	$effect(() => {
-		if (isSettingsOpen) {
+		if (orientation === "horizontal") {
 			document.body.style.overflow = "hidden";
-		} else {
+		} else if (orientation === "vertical") {
 			document.body.style.overflow = "";
 		}
 	});
@@ -38,12 +37,26 @@
 	<Menu
 		bind:mode
 		bind:isDarkMode
-		bind:isSettingsOpen
 		bind:orientation
 	/>
 </main>
 
 <style>
+	@font-face {
+		font-family: "Merriweather";
+		src: url("/Merriweather/Merriweather-VariableFont_opsz\,wdth\,wght.ttf")
+			format("truetype");
+		font-weight: 300 900;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: "Open Sans";
+		src: url("/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf")
+			format("truetype");
+		font-weight: 300 800;
+		font-style: normal;
+	}
+
 	:root {
 		--color-text: black;
 		--color-bg: white;
@@ -60,6 +73,11 @@
 			color 0.3s ease;
 	}
 
+	:global(html.dark) {
+		--color-text: #eee;
+		--color-bg: #121212;
+	}
+
 	:global(body) {
 		background-color: var(--color-bg);
 		color: var(--color-text);
@@ -67,26 +85,6 @@
 		transition:
 			background-color 0.3s ease,
 			color 0.3s ease;
-	}
-
-	:global(html.dark) {
-		--color-text: #eee;
-		--color-bg: #121212;
-	}
-
-	@font-face {
-		font-family: "Merriweather";
-		src: url("/Merriweather/Merriweather-VariableFont_opsz\,wdth\,wght.ttf")
-			format("truetype");
-		font-weight: 300 900;
-		font-style: normal;
-	}
-	@font-face {
-		font-family: "Open Sans";
-		src: url("/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf")
-			format("truetype");
-		font-weight: 300 800;
-		font-style: normal;
 	}
 
 	main {
