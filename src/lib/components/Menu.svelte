@@ -3,13 +3,19 @@
 	import Settings from "$lib/svgs/settings.svelte";
 	import DarkModeToggle from "$lib/components/SegmentControl.svelte/DarkModeToggle.svelte";
 	import OrientationToggle from "$lib/components/SegmentControl.svelte/OrientationToggle.svelte";
+	import type { Mode, Orientation } from "../../types";
 
 	let {
 		mode = $bindable(),
 		isDarkMode = $bindable(),
 		isSettingsOpen = $bindable(),
 		orientation = $bindable(),
-	} = $props();
+	} = $props<{
+		mode: Mode;
+		isDarkMode: boolean;
+		isSettingsOpen: boolean;
+		orientation: Orientation;
+	}>();
 	let dialogElement: null | HTMLDialogElement = $state(null);
 </script>
 

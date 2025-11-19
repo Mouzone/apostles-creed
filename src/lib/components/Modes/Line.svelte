@@ -1,15 +1,17 @@
 <script lang="ts">
-	let { orientation = $bindable() } = $props<{
-		orientation: "horizontal" | "vertical";
-	}>();
-	import jsonData from "$lib/apostles-creed-verses.json" assert { type: "json" };
-	type VerseData = Record<string, string>;
-	const data: VerseData = jsonData;
-
 	import DownArrow from "$lib/svgs/down-arrow.svelte";
 	import LeftArrow from "$lib/svgs/left-arrow.svelte";
 	import RightArrow from "$lib/svgs/right-arrow.svelte";
 	import UpArrow from "$lib/svgs/up-arrow.svelte";
+
+	import jsonData from "$lib/apostles-creed-verses.json" assert { type: "json" };
+
+	import type { Orientation, VerseData } from "../../../types";
+
+	let { orientation = $bindable() } = $props<{
+		orientation: Orientation;
+	}>();
+	const data: VerseData = jsonData;
 
 	const verseCount = Object.keys(data).length;
 	const SWIPE_THRESHOLD = 50;

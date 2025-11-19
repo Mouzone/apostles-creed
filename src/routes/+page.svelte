@@ -3,12 +3,11 @@
 	import All from "$lib/components/Modes/All.svelte";
 	import Line from "$lib/components/Modes/Line.svelte";
 	import Quiz from "$lib/components/Modes/Quiz.svelte";
-
-	type Mode = "all" | "line" | "quiz";
+	import type { Mode, Orientation } from "../types";
 
 	let mode: Mode = $state("all");
 	let isDarkMode = $state(false);
-	let orientation: "horizontal" | "vertical" = $state("horizontal");
+	let orientation: Orientation = $state("horizontal");
 	let isSettingsOpen = $state(false);
 
 	$effect(() => {

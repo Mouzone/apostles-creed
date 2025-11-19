@@ -1,6 +1,7 @@
 <script lang="ts">
 	import jsonData from "$lib/apostles-creed-verses.json" assert { type: "json" };
-	type VerseData = Record<string, string>;
+	import type { VerseData } from "../../../types";
+
 	const data: VerseData = jsonData;
 </script>
 
