@@ -3,7 +3,7 @@
 	import Settings from "$lib/svgs/settings.svelte";
 	import DarkModeToggle from "$lib/components/SegmentControl.svelte/DarkModeToggle.svelte";
 	import OrientationToggle from "$lib/components/SegmentControl.svelte/OrientationToggle.svelte";
-	import type { Mode, Orientation } from "../../types";
+	import type { Mode, Orientation } from "$lib/types";
 
 	let {
 		mode = $bindable(),

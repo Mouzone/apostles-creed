@@ -6,7 +6,7 @@
 
 	import jsonData from "$lib/apostles-creed-verses.json" assert { type: "json" };
 
-	import type { Orientation, VerseData } from "../../../types";
+	import type { Orientation, VerseData } from "$lib/types";
 
 	let { orientation = $bindable() } = $props<{
 		orientation: Orientation;

@@ -3,7 +3,7 @@
 	import All from "$lib/components/Modes/All.svelte";
 	import Line from "$lib/components/Modes/Line.svelte";
 	import Quiz from "$lib/components/Modes/Quiz.svelte";
-	import type { Mode, Orientation } from "../types";
+	import type { Mode, Orientation } from "$lib/types";
 
 	let mode: Mode = $state("all");
 	let isDarkMode = $state(false);
