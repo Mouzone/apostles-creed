@@ -93,8 +93,13 @@
 			color 0.3s ease;
 	}
 
+	:global(button#mode:active, button#hover:active) {
+		background-color: var(--color-text);
+		color: var(--color-bg);
+		border-color: var(--color-bg);
+	}
 	@media (hover: hover) {
-		:global(button#mode, button#hover) {
+		:global(button#mode:hover, button#hover:hover) {
 			background-color: var(--color-text);
 			color: var(--color-bg);
 			border-color: var(--color-bg);
