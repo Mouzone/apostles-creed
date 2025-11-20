@@ -2,7 +2,6 @@
 	import jsonData from "$lib/apostles-creed-verses.json" assert { type: "json" };
 	import type { VerseData } from "$lib/types";
 	import { scrollToBottomOnUpdate } from "$lib/actions";
-	import { preventDefault } from "svelte/legacy";
 	const data: VerseData = jsonData;
 
 	let lineNumber = $state(1);
@@ -67,16 +66,24 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		gap: 1.5em;
 	}
 	#previous {
 		width: 40dvw;
-		height: 40dvh;
+		height: 20dvh;
 		gap: 0.5em;
+
 		display: flex;
 		flex-direction: column;
 		overflow-y: auto;
 		min-height: 0; /* Essential for scrolling in a flex container */
-		padding-bottom: 1em;
+		/* Add a fade-out effect to the top of the scrollable area */
+		mask-image: linear-gradient(to bottom, transparent 0%, black 15%);
+		-webkit-mask-image: linear-gradient(
+			to bottom,
+			transparent 0%,
+			black 15%
+		);
 	}
 	p {
 		margin: 0;
