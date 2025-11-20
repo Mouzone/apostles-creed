@@ -1,12 +1,14 @@
 <script lang="ts">
 	import jsonData from "$lib/apostles-creed-verses.json" assert { type: "json" };
 	import type { VerseData } from "$lib/types";
+	import { scrollToBottom } from "$lib/actions";
 	const data: VerseData = jsonData;
 
 	let lineNumber = $state(1);
 	let userInput = $state("");
 	let chances = $state(3);
 
+	// skip the line break lines, and show them when the line after is guessed
 	function onSubmit() {
 		chances -= 1;
 		if (lineNumber === Object.keys(data).length + 1) return;
@@ -20,7 +22,11 @@
 </script>
 
 <div id="page">
-	<div id="previous">
+	<div
+		id="previous"
+		use:scrollToBottom
+	>
+		<!-- add back .slice(0, Math.max(0, lineNumber - 1)) -->
 		{#each Object.values(data).slice(0, Math.max(0, lineNumber - 1)) as verse}
 			<p>{verse}</p>
 		{/each}
@@ -35,11 +41,25 @@
 
 <style>
 	#page {
-		width: 100dwh;
+		width: 100dvw;
 		height: 100dvh;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		gap: 1em;
+	}
+	#previous {
+		width: 30dvw;
+		height: 20dvh;
+		gap: 0.5em;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end; /* Pushes content to the bottom */
+		overflow-y: auto;
+		min-height: 0; /* Prevents flex item from growing beyond its height */
+	}
+	p {
+		margin: 0;
 	}
 </style>
