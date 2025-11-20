@@ -72,6 +72,7 @@
 		width: 40dvw;
 		height: 20dvh;
 		gap: 0.5em;
+		padding-bottom: 10px;
 
 		display: flex;
 		flex-direction: column;
