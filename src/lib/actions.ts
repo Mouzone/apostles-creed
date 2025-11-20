@@ -1,29 +1,29 @@
 
 /**
- * A Svelte action that scrolls an element to the bottom whenever its content changes.
- * This ensures the view always shows the most recent content after a mutation.
+ * A Svelte action that scrolls an element to the bottom only when its `trigger`
+ * parameter changes. This is ideal for situations where you want to programmatically
+ * scroll after a specific event (like a form submission) without interfering
+ * with user scrolling at other times.
+ *
  * @param {HTMLElement} node The element to apply the action to.
+ * @param {*} trigger Any value that changes when you want to trigger a scroll.
  */
-export function scrollToBottom(node: HTMLElement) {
-	function scroll() {
-		node.scrollTo({
-			top: node.scrollHeight,
-			behavior: "smooth",
-		});
+export function scrollToBottomOnUpdate(node: HTMLElement, trigger: unknown) {
+	// Function to perform the scroll directly.
+	function performScroll() {
+		node.scrollTop = node.scrollHeight;
 	}
 
-	// A MutationObserver waits for the DOM to update before trying to scroll.
-	const observer = new MutationObserver(scroll);
-	observer.observe(node, {
-		childList: true, // Watch for verses being added or removed.
-	});
-
-	// Perform an initial scroll in case there's existing content.
-	setTimeout(scroll, 50);
+	// Initial scroll on mount (next tick after DOM update)
+	setTimeout(performScroll, 0);
 
 	return {
-		destroy() {
-			observer.disconnect();
+		// This is the key: we scroll every time the `trigger` parameter changes.
+		update(newTrigger: unknown) {
+			performScroll();
 		},
+		destroy() {
+			// No event listeners or observers to disconnect in this simplified version
+		}
 	};
 }
