@@ -91,6 +91,9 @@
 	}
 
 	@media (max-width: 640px) {
+		#page {
+			gap: 0.75em;
+		}
 		#previous {
 			width: 70dvw;
 		}
