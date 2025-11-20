@@ -7,15 +7,13 @@
 
 	let lineNumber = $state(1);
 	let userInput = $state("");
+	// remember to reset chances to 3 here and in onSubmit
 	let chances = $state(1);
 	let inputElement: HTMLInputElement | null = $state(null);
 
 	// This single effect handles both initial focus and re-focusing after submissions.
 	$effect(() => {
 		if (inputElement) {
-			// This condition is true on initial mount (lineNumber === 1)
-			// and after any submission that changes lineNumber or chances.
-			// The timeout ensures focus happens reliably after DOM updates, especially on mobile.
 			setTimeout(() => {
 				inputElement?.focus({ preventScroll: true });
 			}, 0);
@@ -31,8 +29,12 @@
 
 		if (chances === 0 || userInput === data[lineNumber]) {
 			lineNumber += 1;
+			if (data[lineNumber] === " ") {
+				lineNumber += 1;
+			}
 			chances = 1;
 		}
+
 		userInput = "";
 	}
 </script>
@@ -45,7 +47,7 @@
 		<div style="flex-grow: 1;"></div>
 		<!-- add back .slice(0, Math.max(0, lineNumber - 1)) -->
 		{#each Object.values(data).slice(0, Math.max(0, lineNumber - 1)) as verse}
-			<p>{verse}</p>
+			<p style:margin-top={verse === " " ? "1em" : ""}>{verse}</p>
 		{/each}
 	</div>
 	<form onsubmit={onSubmit}>
